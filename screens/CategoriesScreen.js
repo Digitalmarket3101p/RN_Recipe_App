@@ -5,14 +5,19 @@ import {CATEGORIES} from '../data/dummy-data';
 const CategoriesScreen = ({navigation}) => {
   const renderGridItem = (itemData) => {
     return (
-      <TouchableOpacity onPress={()=>navigation.navigate('CategoryMealsScreen')}style={Styles.gridItem}>
-  
-      <View >
-        <Text>{itemData.item.title}</Text>
-      </View>
+      <TouchableOpacity
+        style={Styles.gridItem}
+        onPress={() => {
+          navigation.navigate('CategoryMealsScreen', { categoryId: itemData.item.id });
+        }}
+      >
+        <View>
+          <Text>{itemData.item.title}</Text>
+        </View>
       </TouchableOpacity>
     );
   };
+  
   return (
     <FlatList
       keyExtractor={(item, index) => item.id}
