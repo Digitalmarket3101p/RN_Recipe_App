@@ -10,5 +10,9 @@ export const CATEGORIES = [
   new Category('c7', 'Breakfast', '#9eecff'),
   new Category('c8', 'Asian', '#b9ffb0'),
   new Category('c9', 'French', '#ffc7ff'),
-  new Category('c10', 'Summer', '#47fced')
+  new Category('c10', 'Summer', '#47fced'),
+  new Category('c11', 'Italian', '#ffc7ff'),
+  new Category('c12', 'Hamburgers', '#47fced'),
+   new Category('c3', 'Light', '#ffc7ff'),
+  new Category('c14', 'German', '#47fced')
 ];
