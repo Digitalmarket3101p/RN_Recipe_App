@@ -1,5 +1,6 @@
 import React, { useLayoutEffect } from "react";
 import { View, Text, StyleSheet, Button } from "react-native";
+import Icon from "react-native-vector-icons/Ionicons";
 import { MEALS } from "../data/dummy-data";
 const MealDetailScreen = ({ route, navigation }) => {
   const mealId = route.params?.mealId;
@@ -7,20 +8,21 @@ const MealDetailScreen = ({ route, navigation }) => {
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      headerTitle: selectedMeal.title,// Set the header title based on the selected meal
-       headerStyle: {
+      headerTitle: selectedMeal.title,
+      headerStyle: {
         backgroundColor: 'yellow',
       },
       headerRight: () => (
-        // <HeaderButtons HeaderButtonComponent={HeaderButton} >
-        //   <Item title="Favorite" iconName="ios-star" onPress={()=>{console.log('fav')}} />
-        // </HeaderButtons>
-        <Button
-          onPress={() => {
-            // Handle the action for the header right button
-          }}
-          title="Header Right"
+        <Icon
+          name="heart-outline"// Correct icon name for AntDesign "hearto" (outline heart)
+          size={30}
           color="blue"
+          style={{ marginRight: 15 }}
+          onPress={() => {
+            // Handle the action when the heart icon is pressed
+            // For example, you can toggle the favorite status
+            console.log("like");
+          }}
         />
       ),
     });
@@ -29,7 +31,6 @@ const MealDetailScreen = ({ route, navigation }) => {
   return (
     <View style={Styles.screen}>
       <Text>{selectedMeal.title}</Text>
-      <Text>The MealDetail Screen</Text>
       <Button
         title="Go to Back"
         onPress={() => {
