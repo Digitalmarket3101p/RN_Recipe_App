@@ -8,21 +8,24 @@ const CategoryMealsScreen = ({ route, navigation }) => {
       <MealItem title={itemData.item.title} duration={itemData.item.duration}
       complexity={itemData.item.complexity} affordability={itemData.item.affordability} 
       image={itemData.item.imgUrl}
-       onSelectMeal={()=>{}} />
+       onSelectMeal={()=>{
+        navigation.navigate('MealDetailScreen', { mealId: itemData.item.id });
+       }} />
     )
   }
   const catId = route.params?.categoryId;
-  // const selectedCat = CATEGORIES.find((cat) => cat.id === catId);
+  const selectedCat = CATEGORIES.find((cat) => cat.id === catId);
 const displayMeals=MEALS.filter(meal=>meal.categoryIds.indexOf(catId)>=0)
   // Use useLayoutEffect to set the header title
-  // useLayoutEffect(() => {
-  //   navigation.setOptions({
-  //     title: selectedCat.title,
-  //     headerStyle: {
-  //       backgroundColor: 'yellow',
-  //     },
-  //   });
-  // }, [navigation]);
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      title: selectedCat.title,
+      headerStyle: {
+        backgroundColor: 'yellow',
+      },
+    });
+  }, [navigation,selectedCat]);
+  
 
   return (
     <View style={Styles.screen}>
