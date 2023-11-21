@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, useIsFocused } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import CategoriesScreen from './screens/CategoriesScreen';
@@ -11,6 +11,8 @@ const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
 const MealsTabNavigator = () => {
+  const isCategoryMealsFocused = useIsFocused();
+
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
@@ -26,7 +28,7 @@ const MealsTabNavigator = () => {
     >
       {/* Add your tab screens here */}
       <Tab.Screen name="Meals" component={CategoriesScreen} />
-      <Tab.Screen name="Favorite" component={FavoriteMeal} />
+      {isCategoryMealsFocused && <Tab.Screen name="Favorite" component={FavoriteMeal} />}
     </Tab.Navigator>
   );
 };
