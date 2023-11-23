@@ -1,12 +1,17 @@
-import { View, Text } from 'react-native'
-import React from 'react'
+import React from "react";
+import { View, Text, StyleSheet } from "react-native";
+import MealList from "../components/MealList";
+import { MEALS } from "../data/dummy-data";
 
-const FavoriteMeal = () => {
+
+
+const FavoriteScreen = ({navigation}) => {
+  const favMeals=MEALS.filter(meal=>meal.id==='m1' || meal.id==='m2')
+  
   return (
-    <View>
-      <Text>FavoriteMeal</Text>
-    </View>
-  )
-}
+    
+    <MealList listData={favMeals} navigation={navigation}/>
+  );
+};
 
-export default FavoriteMeal
+export default FavoriteScreen;
