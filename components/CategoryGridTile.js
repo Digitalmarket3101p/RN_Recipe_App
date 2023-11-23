@@ -3,7 +3,7 @@ import { TouchableOpacity,View,Text,StyleSheet,Platform,TouchableNativeFeedback 
 
 const CategoryGridTile=props=>{
     let TouchableCmp=TouchableOpacity
-    if(Platform.OS==='android' && Platform.Version >=21){
+    if(Platform.OS==='ios'){
         TouchableCmp=TouchableNativeFeedback
     }
 return(

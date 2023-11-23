@@ -1,11 +1,12 @@
 import React, { useLayoutEffect } from "react";
 import { View, Text, StyleSheet, Button } from "react-native";
+import { useState } from "react";
 import Icon from "react-native-vector-icons/Ionicons";
 import { MEALS } from "../data/dummy-data";
 const MealDetailScreen = ({ route, navigation }) => {
   const mealId = route.params?.mealId;
   const selectedMeal = MEALS.find((meal) => meal.id === mealId);
-
+  const [isLiked, setIsLiked] = useState(false);
   useLayoutEffect(() => {
     navigation.setOptions({
       headerTitle: selectedMeal.title,
@@ -14,19 +15,18 @@ const MealDetailScreen = ({ route, navigation }) => {
       },
       headerRight: () => (
         <Icon
-          name="heart-outline"// Correct icon name for AntDesign "hearto" (outline heart)
+          name={isLiked ? "star-sharp" : "star-outline"} // Use "star" for a filled star and "staro" for an outlined star
           size={30}
-          color="blue"
+          color={isLiked ? "red" : "blue"} // Change color based on the like status
           style={{ marginRight: 15 }}
           onPress={() => {
-            // Handle the action when the heart icon is pressed
-            // For example, you can toggle the favorite status
+            setIsLiked(!isLiked); // Toggle the like status
             console.log("like");
           }}
         />
       ),
     });
-  }, [navigation, selectedMeal]);
+  }, [navigation, selectedMeal,isLiked]);
 
   return (
     <View style={Styles.screen}>
