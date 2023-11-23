@@ -2,14 +2,17 @@ import React from 'react';
 import { NavigationContainer, useIsFocused } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 import CategoriesScreen from './screens/CategoriesScreen';
 import CategoryMealsScreen from './screens/CategoryMealsScreen';
 import MealDetailScreen from './screens/MealDetailScreen';
 import FavoriteMeal from './screens/FavoriteMeal';
+import NotificationScreen from './screens/NotificationScreen'; // Add your NotificationScreen
 import Icon from 'react-native-vector-icons/AntDesign';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
+const Drawer = createDrawerNavigator();
 
 const MealsTabNavigator = () => {
   const isCategoryMealsFocused = useIsFocused();
@@ -44,16 +47,24 @@ const MealsTabNavigator = () => {
   );
 };
 
+const DrawerNavigator = () => {
+  return (
+    <Drawer.Navigator initialRouteName="Home">
+      <Drawer.Screen name="Home" component={MealsTabNavigator} />
+      <Drawer.Screen name="Filters" component={NotificationScreen} />
+    </Drawer.Navigator>
+  );
+};
 
 const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen
-          name="MealsTabNavigator"
-          component={MealsTabNavigator}
+          name="DrawerNavigator"
+          component={DrawerNavigator}
           options={{
-            headerShown: false, // Hide the header for the tab navigator screen
+            headerShown: false, // Hide the header for the drawer navigator screen
           }}
         />
         <Stack.Screen name="CategoryMealsScreen" component={CategoryMealsScreen} />
