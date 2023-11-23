@@ -1,8 +1,13 @@
 import React, { useLayoutEffect } from "react";
-import { View, Text, StyleSheet, Button } from "react-native";
+import { View, Text, StyleSheet, ScrollView, Image,  } from "react-native";
 import { useState } from "react";
 import Icon from "react-native-vector-icons/Ionicons";
 import { MEALS } from "../data/dummy-data";
+const ListItem=props=>{
+  return <View style={Styles.ListItem}>
+    <Text>{props.children}</Text>
+  </View>
+}
 const MealDetailScreen = ({ route, navigation }) => {
   const mealId = route.params?.mealId;
   const selectedMeal = MEALS.find((meal) => meal.id === mealId);
@@ -26,18 +31,23 @@ const MealDetailScreen = ({ route, navigation }) => {
         />
       ),
     });
-  }, [navigation, selectedMeal,isLiked]);
+  }, [navigation, selectedMeal, isLiked]);
 
   return (
-    <View style={Styles.screen}>
-      <Text>{selectedMeal.title}</Text>
-      <Button
-        title="Go to Back"
-        onPress={() => {
-          navigation.popToTop();
-        }}
-      />
-    </View>
+    <ScrollView>
+      <Image source={{ uri: selectedMeal.imgUrl }} style={Styles.image} />
+      <View style={Styles.mealDetail}>
+        <Text>{selectedMeal.duration}m</Text>
+        <Text>{selectedMeal.complexity.toUpperCase()}</Text>
+        <Text>{selectedMeal.affordability.toUpperCase()}</Text>
+
+      </View>
+      <Text style={Styles.title}>Ingrediants</Text>
+      {selectedMeal.ingredients.map(item=>(<ListItem key={item}>{item}</ListItem>))}
+      <Text style={Styles.title}>Steps</Text>
+      {selectedMeal.steps.map(item=>(<ListItem key={item}>{item}</ListItem>))}
+
+    </ScrollView>
   );
 };
 
@@ -47,6 +57,28 @@ const Styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
+  image: {
+    width: '100%',
+    height: 200
+  },
+  mealDetail: {
+    flexDirection: 'row',
+    padding: 15,
+    justifyContent: 'space-around'
+  },
+  title:{
+    fontFamily:'arial',
+    fontSize:22,
+    textAlign:'center'  
+  },
+  ListItem:{
+    marginVertical:10,
+    marginHorizontal:20,
+    borderColor:'pink',
+    borderWidth:1,
+    padding:10
+  }
+
 });
 
 export default MealDetailScreen;

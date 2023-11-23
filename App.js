@@ -51,7 +51,7 @@ const DrawerNavigator = () => {
   return (
     <Drawer.Navigator initialRouteName="Home">
       <Drawer.Screen name="Home" component={MealsTabNavigator} />
-      <Drawer.Screen name="Filters" component={NotificationScreen} />
+      <Drawer.Screen name="Filter" component={NotificationScreen} options={{ headerTitle: 'FilterScreen' }}/>
     </Drawer.Navigator>
   );
 };
