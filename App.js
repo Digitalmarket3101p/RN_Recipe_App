@@ -7,8 +7,9 @@ import CategoriesScreen from './screens/CategoriesScreen';
 import CategoryMealsScreen from './screens/CategoryMealsScreen';
 import MealDetailScreen from './screens/MealDetailScreen';
 import FavoriteMeal from './screens/FavoriteMeal';
-import NotificationScreen from './screens/NotificationScreen'; // Add your NotificationScreen
+
 import Icon from 'react-native-vector-icons/AntDesign';
+import FilterScreen from './screens/FilterScreen';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -51,7 +52,7 @@ const DrawerNavigator = () => {
   return (
     <Drawer.Navigator initialRouteName="Home">
       <Drawer.Screen name="Home" component={MealsTabNavigator} />
-      <Drawer.Screen name="Filter" component={NotificationScreen} options={{ headerTitle: 'FilterScreen' }}/>
+      <Drawer.Screen name="Filter" component={FilterScreen} options={{ headerTitle: 'FilterScreen' }}/>
     </Drawer.Navigator>
   );
 };
