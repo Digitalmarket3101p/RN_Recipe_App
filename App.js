@@ -7,10 +7,18 @@ import CategoriesScreen from './screens/CategoriesScreen';
 import CategoryMealsScreen from './screens/CategoryMealsScreen';
 import MealDetailScreen from './screens/MealDetailScreen';
 import FavoriteMeal from './screens/FavoriteMeal';
-
 import Icon from 'react-native-vector-icons/AntDesign';
 import FilterScreen from './screens/FilterScreen';
+import { configureStore, combineReducers } from '@reduxjs/toolkit';
+import mealReducer from './store/reducers/meals';
+import { Provider } from 'react-redux';
 
+const rootReducer = combineReducers({
+  meals: mealReducer
+})
+const store = configureStore({
+  reducer: rootReducer,
+});
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 const Drawer = createDrawerNavigator();
@@ -52,26 +60,29 @@ const DrawerNavigator = () => {
   return (
     <Drawer.Navigator initialRouteName="Home">
       <Drawer.Screen name="Home" component={MealsTabNavigator} />
-      <Drawer.Screen name="Filter" component={FilterScreen} options={{ headerTitle: 'FilterScreen' }}/>
+      <Drawer.Screen name="Filter" component={FilterScreen} options={{ headerTitle: 'FilterScreen' }} />
     </Drawer.Navigator>
   );
 };
 
 const App = () => {
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen
-          name="DrawerNavigator"
-          component={DrawerNavigator}
-          options={{
-            headerShown: false, // Hide the header for the drawer navigator screen
-          }}
-        />
-        <Stack.Screen name="CategoryMealsScreen" component={CategoryMealsScreen} />
-        <Stack.Screen name="MealDetailScreen" component={MealDetailScreen} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <Provider store={store}>
+
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen
+            name="DrawerNavigator"
+            component={DrawerNavigator}
+            options={{
+              headerShown: false, // Hide the header for the drawer navigator screen
+            }}
+          />
+          <Stack.Screen name="CategoryMealsScreen" component={CategoryMealsScreen} />
+          <Stack.Screen name="MealDetailScreen" component={MealDetailScreen} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </Provider>
   );
 };
 

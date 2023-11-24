@@ -1,16 +1,21 @@
 import React, { useLayoutEffect } from "react";
 import { View, Text, StyleSheet, ScrollView, Image,  } from "react-native";
 import { useState } from "react";
+
 import Icon from "react-native-vector-icons/Ionicons";
-import { MEALS } from "../data/dummy-data";
+
+import { useSelector } from "react-redux";
+
+
 const ListItem=props=>{
   return <View style={Styles.ListItem}>
     <Text>{props.children}</Text>
   </View>
 }
 const MealDetailScreen = ({ route, navigation }) => {
+  const availableMeals=useSelector(state=>state.meals.meals)
   const mealId = route.params?.mealId;
-  const selectedMeal = MEALS.find((meal) => meal.id === mealId);
+  const selectedMeal = availableMeals.find((meal) => meal.id === mealId);
   const [isLiked, setIsLiked] = useState(false);
   useLayoutEffect(() => {
     navigation.setOptions({

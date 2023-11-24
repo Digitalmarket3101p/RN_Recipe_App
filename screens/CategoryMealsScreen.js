@@ -1,14 +1,16 @@
 import React, { useLayoutEffect } from "react";
-import { View, Text, StyleSheet, Button, FlatList } from "react-native";
-import { CATEGORIES,MEALS } from "../data/dummy-data";
-import MealItem from "../components/MealItem";
+import { StyleSheet } from "react-native";
+
+import { CATEGORIES } from "../data/dummy-data";
 import MealList from "../components/MealList";
+import { useSelector } from "react-redux";
 
 const CategoryMealsScreen = ({ route, navigation }) => {
- 
+
   const catId = route.params?.categoryId;
   const selectedCat = CATEGORIES.find((cat) => cat.id === catId);
-const displayMeals=MEALS.filter(meal=>meal.categoryIds.indexOf(catId)>=0)
+  const availableMeals=useSelector(state=>state.meals.filterMeals)
+  const displayMeals = availableMeals.filter(meal => meal.categoryIds.indexOf(catId) >= 0)
   // Use useLayoutEffect to set the header title
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -17,11 +19,11 @@ const displayMeals=MEALS.filter(meal=>meal.categoryIds.indexOf(catId)>=0)
         backgroundColor: 'yellow',
       },
     });
-  }, [navigation,selectedCat]);
-  
+  }, [navigation, selectedCat]);
+
 
   return (
-   <MealList listData={displayMeals} navigation={navigation} />
+    <MealList listData={displayMeals} navigation={navigation} />
   );
 };
 
