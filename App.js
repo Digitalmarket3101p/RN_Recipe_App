@@ -26,9 +26,9 @@ const MealsTabNavigator = () => {
           let iconName;
 
           if (route.name === 'Meals') {
-            iconName = 'appstore-o'; // Change to the desired icon for "Meals"
+            iconName = 'home'; // Change to the desired icon for "Meals"
           } else if (route.name === 'Favorite') {
-            iconName = 'hearto'; // Change to the desired icon for "Favorite"
+            iconName = 'heart'; // Change to the desired icon for "Favorite"
           }
 
           return <Icon name={iconName} size={size} color={color} />;
