@@ -1,10 +1,11 @@
-import React, { useLayoutEffect } from "react";
+import React, { useEffect, useLayoutEffect,useCallback } from "react";
 import { View, Text, StyleSheet, ScrollView, Image,  } from "react-native";
 import { useState } from "react";
 
 import Icon from "react-native-vector-icons/Ionicons";
 
-import { useSelector } from "react-redux";
+import { useSelector,useDispatch } from "react-redux";
+import { toggleFav } from "../store/actions/meals";
 
 
 const ListItem=props=>{
@@ -16,7 +17,17 @@ const MealDetailScreen = ({ route, navigation }) => {
   const availableMeals=useSelector(state=>state.meals.meals)
   const mealId = route.params?.mealId;
   const selectedMeal = availableMeals.find((meal) => meal.id === mealId);
+  const dispatch=useDispatch()
+  const toggleFavHandeler=useCallback(()=>{
+    dispatch(toggleFav(mealId))
+
+  },[dispatch,mealId])
   const [isLiked, setIsLiked] = useState(false);
+  
+//   useEffect(()=>{
+// navigation.setParams({toggleFavo:toggleFavHandeler})
+//   },[toggleFavHandeler])
+
   useLayoutEffect(() => {
     navigation.setOptions({
       headerTitle: selectedMeal.title,
@@ -24,6 +35,7 @@ const MealDetailScreen = ({ route, navigation }) => {
         backgroundColor: 'yellow',
       },
       headerRight: () => (
+
         <Icon
           name={isLiked ? "star-sharp" : "star-outline"} // Use "star" for a filled star and "staro" for an outlined star
           size={30}
@@ -32,6 +44,8 @@ const MealDetailScreen = ({ route, navigation }) => {
           onPress={() => {
             setIsLiked(!isLiked); // Toggle the like status
             console.log("like");
+            toggleFavHandeler()
+            
           }}
         />
       ),
